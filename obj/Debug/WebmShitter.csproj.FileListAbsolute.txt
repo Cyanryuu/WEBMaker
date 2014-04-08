@@ -1,0 +1,9 @@
+C:\Users\Develop\Documents\Visual Studio 2012\Projects\webm\WebmShitter\WebmShitter\bin\Debug\Resources\list
+C:\Users\Develop\Documents\Visual Studio 2012\Projects\webm\WebmShitter\WebmShitter\bin\Debug\Resources\ffmpeg.exe
+C:\Users\Develop\Documents\Visual Studio 2012\Projects\webm\WebmShitter\WebmShitter\bin\Debug\WEBMaker.exe
+C:\Users\Develop\Documents\Visual Studio 2012\Projects\webm\WebmShitter\WebmShitter\bin\Debug\WEBMaker.pdb
+C:\Users\Develop\Documents\Visual Studio 2012\Projects\webm\WebmShitter\WebmShitter\obj\Debug\WebmShitter.Form1.resources
+C:\Users\Develop\Documents\Visual Studio 2012\Projects\webm\WebmShitter\WebmShitter\obj\Debug\WEBMaker.Properties.Resources.resources
+C:\Users\Develop\Documents\Visual Studio 2012\Projects\webm\WebmShitter\WebmShitter\obj\Debug\WebmShitter.csproj.GenerateResource.Cache
+C:\Users\Develop\Documents\Visual Studio 2012\Projects\webm\WebmShitter\WebmShitter\obj\Debug\WEBMaker.exe
+C:\Users\Develop\Documents\Visual Studio 2012\Projects\webm\WebmShitter\WebmShitter\obj\Debug\WEBMaker.pdb
