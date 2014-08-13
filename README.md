@@ -18,7 +18,9 @@ Is a click and point wrapper around FFMPEG
 
 ####"Tips"####
 Use the miliseconds (.000)
+
 Use more threads for faster results
+
 Use only as much bitrate as you need, that is, a webm might look as good with 5000k bitrate as with 8000k and it will be smaller in size, therefore load faster.
 
 ![alt tag](https://i.imgur.com/E0a28Zr.png)
