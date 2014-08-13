@@ -1,8 +1,10 @@
 #WEBMaker - Simple GUI for .webm file creation - By KFAPPER
 
 ####WEBMAKER####
-uses .NET which is installed by default on newer Windows versions
+Uses .NET which is installed by default on newer Windows versions
+
 Does absolutely nothing else than make .webms
+
 Is a click and point wrapper around FFMPEG
 
 ####HOWTO####
