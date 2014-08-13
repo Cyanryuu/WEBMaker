@@ -2,10 +2,8 @@
 
 ####WEBMAKER####
 uses .NET which is installed by default on newer Windows versions
-
-does absolutely nothing else than make .webms
-
-is a click and point wrapper around FFMPEG
+Does absolutely nothing else than make .webms
+Is a click and point wrapper around FFMPEG
 
 ####HOWTO####
 
@@ -18,9 +16,7 @@ is a click and point wrapper around FFMPEG
 
 ####"Tips"####
 Use the miliseconds (.000)
-
 Use more threads for faster results
-
 Use only as much bitrate as you need, that is, a webm might look as good with 5000k bitrate as with 8000k and it will be smaller in size, therefore load faster.
 
 ![alt tag](https://i.imgur.com/E0a28Zr.png)
