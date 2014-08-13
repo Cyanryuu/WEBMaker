@@ -19,15 +19,16 @@ namespace WebmShitter
         string cmd = "-i ";
         string outFile = "";
         public Thread thread = null;
+        string genName = "";
+
 
         delegate void SetTitleCallback(string text);
         delegate void SetProcessingCallback(bool value);
-  
+
+        Process proc;
+
         private void SetTitle(string text)
         {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
             if (this.InvokeRequired)
             {
                 SetTitleCallback d = new SetTitleCallback(SetTitle);
@@ -41,9 +42,6 @@ namespace WebmShitter
 
         private void SetThread(bool value)
         {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
             if (this.InvokeRequired)
             {
                 SetProcessingCallback d = new SetProcessingCallback(SetThread);
@@ -69,6 +67,9 @@ namespace WebmShitter
         {
             string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             this.FileName.Text = FileList[0];
+            genName = gen_Name();
+            outFile = Directory.GetCurrentDirectory() + "\\output\\" + genName + ".webm";
+            created.Text = "Current file: " + genName;
         }
 
         private void Form1_DragEnter(object sender, DragEventArgs e)
@@ -95,36 +96,25 @@ namespace WebmShitter
         }
         private bool retard_Check()
         {
-            if (FileName.Text == "" || FileName.Text == "Drag and drop a file" || Start.Text == "" || End.Text == "")
+            if (FileName.Text == "" || FileName.Text == "Drag and drop a file" || Start.Text == "" || End.Text == "" || Start.Text == "00:00:00.000" || End.Text == "00:00:00.000")
             {
                 return false;
             }
             return true;
         }
 
-        private void ProcessFile(string start, string end, string filesize, string filename, string thr, string qual, string x, string y)
+        private void ProcessFile(string start, string end, string filename, string thr, string qual)
         {
-            outFile = Directory.GetCurrentDirectory() + "\\output\\" + gen_Name() + ".webm";
-            double quality = System.Convert.ToInt64(qual);
-
-            if (filesize != "0")
-            {
-                do
+                string scaler = "";
+                this.Invoke((MethodInvoker)delegate()
                 {
-                    if (File.Exists(outFile))
-                    {
-                        File.Delete(outFile);
-                        SetTitle(".WEBM Maker - Status: Processing (Reducing quality to fit size limit) ...");
-                    }
+                    scaler = Res.Text;
+                });
 
-                    qual = quality.ToString().Replace(",", ".") + "M";
+                qual += "k";
 
-                    string args = "-i " + '"' + FileName.Text + '"' + " -ss " + Start.Text + " -to " + End.Text + " -c:v libvpx -crf 4 -b:v " + qual;
-                    
-                    if(x != "" && y != "")
-                    {
-                        args += " -vf scale=" + x + ":" + y;
-                    }
+                    string args = "-i " + '"' + FileName.Text + '"' + " -y -ss " + Start.Text + " -to " + End.Text + " -codec:v libvpx -quality good -cpu-used 0 -qmin 0 -qmax 50 ";
+                    args += "-b:v " + qual + " -maxrate " + qual + " -bufsize " + qual + " -vf scale=-1:" + scaler;
 
                     bool audio = false;
                     this.Invoke((MethodInvoker)delegate()
@@ -132,27 +122,16 @@ namespace WebmShitter
                         audio = Audio.Checked;
                     });
 
-                    if(!audio)
+                    if (!audio)
                     {
-                      args += " -an";
-                    }
-                    
-                    bool twopass = false;
-                    this.Invoke((MethodInvoker)delegate()
-                    {
-                        twopass = Twopass.Checked;
-                    });
-
-                    if(twopass)
-                    {
-                        args += " -pass 2";
+                        args += " -an";
                     }
 
                     args += " -threads " + thr + " " + '"' + outFile + '"';
 
                     SetTitle(".WEBM Maker - Status: Processing (This might take a while) ...");
 
-                    var proc = new Process
+                    proc = new Process
                     {
                         StartInfo = new ProcessStartInfo
                         {
@@ -166,82 +145,51 @@ namespace WebmShitter
 
                     proc.Start();
                     proc.WaitForExit();
+          
 
-                    quality -= 0.2;
-                    bool value = true;
-                    this.Invoke((MethodInvoker)delegate()
-                    {
-                        value = isProcessing;
-                    });
+                SetTitle(".WEBM Maker - Status: Done ...");
 
-                    if (!value)
-                    {
-                        SetTitle(".WEBM Maker - Status: Canceling ...");
-                        foreach (System.Diagnostics.Process myProc in System.Diagnostics.Process.GetProcesses())
-                        {
-                            if (myProc.ProcessName == "ffmpeg")
-                            {
-                                myProc.Kill();
-                            }
-                        }
-                        Thread.Sleep(1500);
-                        SetTitle(".WEBM Maker - Status: Idle");
-                        return;
-                    }
-                } while (new FileInfo(outFile).Length > (System.Convert.ToInt64(filesize) * 1000000));
-            }
-            else {
+                Thread.Sleep(1500);
 
-                qual = quality.ToString().Replace(",", ".") + "M";
-
-                string args = "-i " + '"' + FileName.Text + '"' + " -ss " + Start.Text + " -to " + End.Text + " -c:v libvpx -crf 4 -b:v " + qual;
-
-                if (x != "" && y != "")
-                {
-                    args += " -vf scale=" + x + ":" + y;
-                }
-
-                bool audio = false;
                 this.Invoke((MethodInvoker)delegate()
                 {
-                    audio = Audio.Checked;
-                });
-
-                if (!audio)
-                {
-                    args += " -an";
-                }
-
-                bool twopass = false;
-                this.Invoke((MethodInvoker)delegate()
-                {
-                    twopass = Twopass.Checked;
-                });
-
-                if (twopass)
-                {
-                    args += " -pass 2";
-                }
-
-                args += " -threads " + thr + " " + '"' + outFile + '"';
-
-                SetTitle(".WEBM Maker - Status: Processing (This might take a while) ...");
-
-                var proc = new Process
-                {
-                    StartInfo = new ProcessStartInfo
+                    if (Preview.Checked)
                     {
-                        FileName = Directory.GetCurrentDirectory() + "\\bin" + "\\ffmpeg.exe",
-                        Arguments = args,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        CreateNoWindow = true
+                        System.Diagnostics.Process.Start(@outFile);
                     }
-                };
+                });
 
-                proc.Start();
-                proc.WaitForExit();
-            }
+          
+                SetTitle(".WEBM Maker - Status: Idle");
+                SetThread(false);
+       }
+
+        private void CropFile(string xout, string yout, string xcut, string ycut, string thr, string qual)
+        {
+            qual += "k";
+            string filename = Directory.GetCurrentDirectory() + "\\output\\" + "Cropped" + genName + ".webm";
+
+            string args = "-i " + '"' + outFile + '"' + " -y -vf crop=" + xout + ":" + yout + ":" + xcut + ":" + ycut + " -vcodec libvpx -b:v " + qual + " " + '"' + filename + '"';
+            //MessageBox.Show(args);
+
+            //-i something.webm -vf crop=1280:450:0:110 -vcodec libvpx -b:v 8000k test.webm
+
+            SetTitle(".WEBM Maker - Status: Processing (This might take a while) ...");
+
+            proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Directory.GetCurrentDirectory() + "\\bin" + "\\ffmpeg.exe",
+                    Arguments = args,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
+
+            proc.Start();
+            proc.WaitForExit();
 
             SetTitle(".WEBM Maker - Status: Done ...");
 
@@ -251,14 +199,15 @@ namespace WebmShitter
             {
                 if (Preview.Checked)
                 {
-                    System.Diagnostics.Process.Start(@outFile);
+                    System.Diagnostics.Process.Start(@filename);
                 }
             });
 
-          
+
             SetTitle(".WEBM Maker - Status: Idle");
             SetThread(false);
         }
+
         private void make_Click(object sender, EventArgs e)
         {
             if (!File.Exists(FileName.Text))
@@ -270,7 +219,7 @@ namespace WebmShitter
             if (!isProcessing)
             {
                 isProcessing = true;
-                thread = new Thread(() => ProcessFile(Start.Text, End.Text, filesize.Text, FileName.Text, Thr.Text, Qual.Text, x.Text, y.Text));
+                thread = new Thread(() => ProcessFile(Start.Text, End.Text, FileName.Text, Thr.Text, Qual.Text));
                 thread.Start();
             }
             else
@@ -279,22 +228,70 @@ namespace WebmShitter
             }
         }
 
-        private void Advanced_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Advanced.Checked)
-            {
-                panel.Visible = true;
-            }
-            else {
-                panel.Visible = false;
-            }
-        }
 
         private void Cancel_Click(object sender, EventArgs e)
         {
             if (isProcessing)
             {
+                proc.Kill();
+                thread.Abort();
+                SetTitle(".WEBM Maker - Status: Canceled ...");
+                
                 isProcessing = false;
+            }
+        }
+
+        private void OpenFolder(object sender, MouseEventArgs e)
+        {
+            Process.Start(Directory.GetCurrentDirectory() + "\\output\\");
+        }
+
+        private void crop_Click(object sender, MouseEventArgs e)
+        {
+            if (!File.Exists(outFile))
+            {
+                MessageBox.Show("Create a clip first!");
+                return;    
+            }
+
+            if (!isProcessing)
+            {
+                isProcessing = true;
+                thread = new Thread(() => CropFile(xout.Text, yout.Text, xcut.Text, ycut.Text, Thr.Text, Qual.Text));
+                thread.Start();
+            }
+            else
+            {
+                MessageBox.Show("Already processing - cancel current or wait!");
+            }
+        }
+
+        private void cancel_Click(object sender, MouseEventArgs e)
+        {
+            if (isProcessing)
+            {
+                proc.Kill();
+                thread.Abort();
+                SetTitle(".WEBM Maker - Status: Canceled ...");
+
+                isProcessing = false;
+            }
+        }
+
+        private void change_Res(object sender, EventArgs e)
+        {
+            if (Res.SelectedItem == "1080")
+            {
+                yout.Text = "1080";
+                xout.Text = "1920";
+                Qual.Text = "8000";
+            }
+
+            if (Res.SelectedItem == "720")
+            {
+                yout.Text = "720";
+                xout.Text = "1280";
+                Qual.Text = "3500";
             }
         }
 

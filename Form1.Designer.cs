@@ -41,19 +41,26 @@
             this.Qual = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.Thr = new System.Windows.Forms.TextBox();
-            this.filesize = new System.Windows.Forms.TextBox();
-            this.Advanced = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.Cancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panel = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.x = new System.Windows.Forms.TextBox();
-            this.y = new System.Windows.Forms.TextBox();
+            this.Output = new System.Windows.Forms.Button();
             this.Audio = new System.Windows.Forms.CheckBox();
-            this.Twopass = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Res = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.xout = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.yout = new System.Windows.Forms.TextBox();
+            this.xcut = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.ycut = new System.Windows.Forms.TextBox();
+            this.created = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.panel.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -84,7 +91,7 @@
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(74, 20);
             this.Start.TabIndex = 2;
-            this.Start.Text = "00:00:00";
+            this.Start.Text = "00:00:00.000";
             // 
             // End
             // 
@@ -92,7 +99,7 @@
             this.End.Name = "End";
             this.End.Size = new System.Drawing.Size(74, 20);
             this.End.TabIndex = 3;
-            this.End.Text = "00:00:00";
+            this.End.Text = "00:00:00.000";
             // 
             // label1
             // 
@@ -117,7 +124,7 @@
             this.Preview.AutoSize = true;
             this.Preview.Checked = true;
             this.Preview.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Preview.Location = new System.Drawing.Point(432, 51);
+            this.Preview.Location = new System.Drawing.Point(479, 52);
             this.Preview.Name = "Preview";
             this.Preview.Size = new System.Drawing.Size(64, 17);
             this.Preview.TabIndex = 8;
@@ -127,24 +134,24 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 50);
+            this.label5.Location = new System.Drawing.Point(273, 85);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 13);
+            this.label5.Size = new System.Drawing.Size(37, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Quality (MB)";
+            this.label5.Text = "Bitrate";
             // 
             // Qual
             // 
-            this.Qual.Location = new System.Drawing.Point(86, 47);
+            this.Qual.Location = new System.Drawing.Point(334, 82);
             this.Qual.Name = "Qual";
-            this.Qual.Size = new System.Drawing.Size(74, 20);
+            this.Qual.Size = new System.Drawing.Size(121, 20);
             this.Qual.TabIndex = 8;
-            this.Qual.Text = "5";
+            this.Qual.Text = "8000";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 24);
+            this.label4.Location = new System.Drawing.Point(8, 84);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 7;
@@ -152,39 +159,11 @@
             // 
             // Thr
             // 
-            this.Thr.Location = new System.Drawing.Point(86, 21);
+            this.Thr.Location = new System.Drawing.Point(60, 82);
             this.Thr.Name = "Thr";
             this.Thr.Size = new System.Drawing.Size(74, 20);
             this.Thr.TabIndex = 6;
             this.Thr.Text = "1";
-            // 
-            // filesize
-            // 
-            this.filesize.Location = new System.Drawing.Point(347, 49);
-            this.filesize.Name = "filesize";
-            this.filesize.Size = new System.Drawing.Size(51, 20);
-            this.filesize.TabIndex = 3;
-            this.filesize.Text = "0";
-            // 
-            // Advanced
-            // 
-            this.Advanced.AutoSize = true;
-            this.Advanced.Location = new System.Drawing.Point(10, 84);
-            this.Advanced.Name = "Advanced";
-            this.Advanced.Size = new System.Drawing.Size(236, 17);
-            this.Advanced.TabIndex = 10;
-            this.Advanced.Text = "Show Advanced (Refer to FFMPEG Manual)";
-            this.Advanced.UseVisualStyleBackColor = true;
-            this.Advanced.CheckedChanged += new System.EventHandler(this.Advanced_CheckedChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(268, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Max size (MB)";
             // 
             // Cancel
             // 
@@ -198,92 +177,195 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.created);
+            this.groupBox1.Controls.Add(this.Thr);
+            this.groupBox1.Controls.Add(this.Output);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.Audio);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.Res);
             this.groupBox1.Controls.Add(this.FileName);
             this.groupBox1.Controls.Add(this.Cancel);
             this.groupBox1.Controls.Add(this.make);
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.Start);
-            this.groupBox1.Controls.Add(this.Advanced);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.End);
-            this.groupBox1.Controls.Add(this.filesize);
+            this.groupBox1.Controls.Add(this.Qual);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.Preview);
-            this.groupBox1.Location = new System.Drawing.Point(7, 1);
+            this.groupBox1.Location = new System.Drawing.Point(7, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(677, 114);
+            this.groupBox1.Size = new System.Drawing.Size(677, 156);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Clip";
             // 
-            // panel
+            // Output
             // 
-            this.panel.Controls.Add(this.Twopass);
-            this.panel.Controls.Add(this.Audio);
-            this.panel.Controls.Add(this.y);
-            this.panel.Controls.Add(this.x);
-            this.panel.Controls.Add(this.label6);
-            this.panel.Controls.Add(this.label5);
-            this.panel.Controls.Add(this.Qual);
-            this.panel.Controls.Add(this.Thr);
-            this.panel.Controls.Add(this.label4);
-            this.panel.Location = new System.Drawing.Point(7, 114);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(677, 78);
-            this.panel.TabIndex = 13;
-            this.panel.TabStop = false;
-            this.panel.Text = "Advanced";
-            this.panel.Visible = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(170, 38);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Resolution";
-            // 
-            // x
-            // 
-            this.x.Location = new System.Drawing.Point(236, 21);
-            this.x.Name = "x";
-            this.x.Size = new System.Drawing.Size(74, 20);
-            this.x.TabIndex = 11;
-            // 
-            // y
-            // 
-            this.y.Location = new System.Drawing.Point(236, 47);
-            this.y.Name = "y";
-            this.y.Size = new System.Drawing.Size(74, 20);
-            this.y.TabIndex = 13;
+            this.Output.Location = new System.Drawing.Point(479, 118);
+            this.Output.Name = "Output";
+            this.Output.Size = new System.Drawing.Size(192, 23);
+            this.Output.TabIndex = 15;
+            this.Output.Text = "Open output folder";
+            this.Output.UseVisualStyleBackColor = true;
+            this.Output.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OpenFolder);
             // 
             // Audio
             // 
             this.Audio.AutoSize = true;
-            this.Audio.Location = new System.Drawing.Point(334, 49);
+            this.Audio.Location = new System.Drawing.Point(479, 85);
             this.Audio.Name = "Audio";
             this.Audio.Size = new System.Drawing.Size(53, 17);
             this.Audio.TabIndex = 14;
             this.Audio.Text = "Audio";
             this.Audio.UseVisualStyleBackColor = true;
             // 
-            // Twopass
+            // label3
             // 
-            this.Twopass.AutoSize = true;
-            this.Twopass.Location = new System.Drawing.Point(334, 24);
-            this.Twopass.Name = "Twopass";
-            this.Twopass.Size = new System.Drawing.Size(58, 17);
-            this.Twopass.TabIndex = 15;
-            this.Twopass.Text = "2 Pass";
-            this.Twopass.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(271, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Resolution";
+            // 
+            // Res
+            // 
+            this.Res.FormattingEnabled = true;
+            this.Res.Items.AddRange(new object[] {
+            "1080",
+            "720"});
+            this.Res.Location = new System.Drawing.Point(334, 49);
+            this.Res.Name = "Res";
+            this.Res.Size = new System.Drawing.Size(121, 21);
+            this.Res.TabIndex = 12;
+            this.Res.Text = "1080";
+            this.Res.SelectionChangeCommitted += new System.EventHandler(this.change_Res);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.xcut);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.ycut);
+            this.groupBox2.Controls.Add(this.xout);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.yout);
+            this.groupBox2.Location = new System.Drawing.Point(7, 161);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(677, 84);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Crop";
+            // 
+            // xout
+            // 
+            this.xout.Location = new System.Drawing.Point(58, 19);
+            this.xout.Name = "xout";
+            this.xout.Size = new System.Drawing.Size(74, 20);
+            this.xout.TabIndex = 6;
+            this.xout.Text = "1920";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(45, 13);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "X-Width";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(596, 49);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Cancel";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cancel_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(596, 16);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Crop";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.crop_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 54);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(50, 13);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Y-Length";
+            // 
+            // yout
+            // 
+            this.yout.Location = new System.Drawing.Point(58, 50);
+            this.yout.Name = "yout";
+            this.yout.Size = new System.Drawing.Size(74, 20);
+            this.yout.TabIndex = 8;
+            this.yout.Text = "1080";
+            // 
+            // xcut
+            // 
+            this.xcut.Location = new System.Drawing.Point(202, 19);
+            this.xcut.Name = "xcut";
+            this.xcut.Size = new System.Drawing.Size(74, 20);
+            this.xcut.TabIndex = 12;
+            this.xcut.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(150, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(39, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "X-Start";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(150, 54);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(39, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Y-Start";
+            // 
+            // ycut
+            // 
+            this.ycut.Location = new System.Drawing.Point(202, 50);
+            this.ycut.Name = "ycut";
+            this.ycut.Size = new System.Drawing.Size(74, 20);
+            this.ycut.TabIndex = 14;
+            this.ycut.Text = "0";
+            // 
+            // created
+            // 
+            this.created.AutoSize = true;
+            this.created.Location = new System.Drawing.Point(8, 123);
+            this.created.Name = "created";
+            this.created.Size = new System.Drawing.Size(60, 13);
+            this.created.TabIndex = 16;
+            this.created.Text = "Current file:";
             // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 198);
-            this.Controls.Add(this.panel);
+            this.ClientSize = new System.Drawing.Size(694, 251);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
@@ -293,8 +375,8 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.panel.ResumeLayout(false);
-            this.panel.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -309,21 +391,28 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox Preview;
-        private System.Windows.Forms.TextBox filesize;
-        private System.Windows.Forms.CheckBox Advanced;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox Qual;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox Thr;
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox panel;
-        private System.Windows.Forms.TextBox y;
-        private System.Windows.Forms.TextBox x;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox Audio;
-        private System.Windows.Forms.CheckBox Twopass;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox Res;
+        private System.Windows.Forms.Button Output;
+        private System.Windows.Forms.Label created;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox xcut;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox ycut;
+        private System.Windows.Forms.TextBox xout;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox yout;
     }
 }
 
